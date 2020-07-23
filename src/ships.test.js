@@ -1,5 +1,5 @@
 const functions = require('./ships');
-const { Gameboard } = require('./ships');
+//const { Gameboard } = require('./ships');
 
 /// SHIPS //////
 test('setup works', () => {
@@ -125,7 +125,7 @@ test('find legal move finds a legal move', () => {
     let humanGB = playerOne.getGameBoard();
     playerOne.testHitAllSquares(12);
     let moveSquare = playerOne.findLegalMove(humanGB);
-    expect(moveSquare).toEqual(12);
+    expect(moveSquare).toEqual(12);  
 });
 
 test('test hits all squares execpt exemption', () => {

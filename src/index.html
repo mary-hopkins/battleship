@@ -16,24 +16,23 @@
 <header>
     <h1>BattleShip</h1>
 </header>
-  <p>Hello, world!</p>
+
 <div id="content">
     <div class="section" id="maps">
-        <div class="gameboard" id="human-fleet">
-
+        <div class="float" id="left">
+          <div class="gameboard" id="human-fleet"></div>
+          <p>Your Fleet</p>
         </div>
-        <div class="gameboard" id="enemy-ocean"></div>
+        <div class="float" id="right">
+          <div class="gameboard" id="enemy-ocean"></div>
+          <p>Enemy Ocean</p>
+        </div>
     </div>
     <div class="section" id="user-log"></div>
 </div>
 
-
-
-
-
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script type="module" src="main.js"></script>
+  
+  <script type="module" src="index.js"></script>
 </body>
 
 </html>
