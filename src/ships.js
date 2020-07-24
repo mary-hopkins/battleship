@@ -225,7 +225,6 @@ const Gameboard = (
     for(let i = 0; i < coordinates.length; i++) {
       let currentSquare = coordinates[i];
       if(currentSquare.squareId == coord) {
-        console.log(`to be returned to findSquare: ${currentSquare.squareId}`);
         return currentSquare;
       }
     }
@@ -233,7 +232,6 @@ const Gameboard = (
   }
 
   const receiveAttack = (coord) => {
-    console.log(`receive attack coord: ${coord}`);
     let targetSquare = findSquare(coord);
     targetSquare.struck = true;
     let hasAShip = false;
@@ -272,7 +270,8 @@ const checkDefeat = () => {
     getCoord,
     createShip,
     receiveAttack,
-    getDefeated
+    getDefeated,
+    findSquare
   };
 
 }

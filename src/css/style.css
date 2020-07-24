@@ -2,6 +2,7 @@ body {
     box-sizing: border-box;
     margin: 0 auto;
 }
+
 /* Header Tags */
 header {
     border: 3px solid navy;
@@ -34,10 +35,11 @@ h1 {
     width: 510px;
 }
 button {
-    height: 100px;
-    width: 100px;
+    height: 30px;
+    width: 200px;
+    position: relative;
+    left: 30px;
 }
-
 .float p {
     text-align: center;
     padding-top: 10px;
@@ -53,23 +55,13 @@ button {
     height: 100%;
 }
 
-
-/* Logger */
-#user-log {
-    display: none;
-    border: 3px solid red;
-    height: 100px;
-}
-
+/* Tile Classes */
 .square {
     border: .5px solid white;
     width: 47px;
     height: 47px;
     flex: 1 0 auto;
 }
-
-/* Tile Classes */
-
 .water {
     background-color: lightskyblue;
 }
@@ -84,13 +76,23 @@ button {
 }
 
 /* SHIPS */
-
 .shipShape {
     background-color: gray;
     margin-right: 250px;
     margin-left: 10px;
     margin-top: 10px;
     border-radius: 40%;
+    display: inline-block;
+}
+.hold {
+    border: solid lightgray 4px;
+}
+.hovered {
+    background-color: lightgray;
+    border-style: dashed;
+}
+.invisible {
+    background: lightblue;
 }
 
 .carriership.long {
@@ -133,21 +135,4 @@ button {
 .patrolship.tall {
     height: 94px;
     width: 45px;
-}
-
-.hold {
-    border: solid lightgray 4px;
-}
-
-.hovered {
-    background-color: lightgray;
-    border-style: dashed;
-}
-
-.invisible {
-    background: lightblue;
-}
-
-.blue {
-    background-color: blue;
 }

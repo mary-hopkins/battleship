@@ -1,11 +1,5 @@
 import { Game } from "./ships.js";
 
-/// TODO LIST ////
-// 1. Clean up CSS and make is pretty
-// 2. MOBILE layouts
-// 3. look at rando sort and clear out unnessecary code
-// 4. Add auto place feature for human player
-
 /////////////////////////////Prebuilt stuff
 let newGame = Game();
 let humanPlayer = newGame.getPlayer(1);
@@ -16,7 +10,16 @@ let computerGB = computerPlayer.getGameBoard();
 
 // functions to create human-fleet
 function createHumanFleet() {
-    let humanFleet = document.querySelector('#human-fleet');
+    let humanZone = document.querySelector('#left');
+    humanZone.innerHTML = "";
+
+    let humanTitle = document.createElement('p');
+    humanTitle.innerHTML = "Your Fleet";
+    
+    let humanFleet = document.createElement('div');
+    humanFleet.classList.add('gameboard');
+    humanFleet.setAttribute("id", "human-fleet");
+
     let humanCoordinates = humanGB.getCoords();
     for(let i = 0; i < humanCoordinates.length; i++) {
         let newTile = document.createElement('div');
@@ -33,12 +36,24 @@ function createHumanFleet() {
             newTile.classList.add("struck");
         }
         humanFleet.appendChild(newTile);
-    } 
+    }
+    humanZone.appendChild(humanFleet);
+    humanZone.appendChild(humanTitle); 
 }
 
 // functions to create enemy-ocean
 function createEnemyOcean() {
-    let enemyOcean = document.querySelector('#enemy-ocean');
+    let enemyZone = document.querySelector('#right');
+    enemyZone.innerHTML = "";
+
+    let enemyTitle = document.createElement('p');
+    enemyTitle.innerHTML = "Enemy Ocean";
+    
+    
+    let enemyOcean = document.createElement('div');
+    enemyOcean.classList.add('gameboard');
+    enemyOcean.setAttribute("id", "enemy-ocean");
+   
     let computerCoordinates = computerGB.getCoords();
     for(let i = 0; i < computerCoordinates.length; i++) {
         let newTile = document.createElement('div');
@@ -55,7 +70,9 @@ function createEnemyOcean() {
             newTile.classList.add("ship");
         }
         enemyOcean.appendChild(newTile);
-    } 
+    }
+    enemyZone.appendChild(enemyOcean);
+    enemyZone.appendChild(enemyTitle); 
 }
 
 // function to declare a winner and end the game
@@ -174,7 +191,15 @@ function doTheSwitcheroo(ship) {
 
 // Function that creates a bank of ship shapes
 function createShipBank() {
-    let shipBank = document.querySelector('#enemy-ocean');
+    let shipZone = document.querySelector('#right');
+    shipZone.innerHTML = "";
+
+    let shipTitle = document.createElement('p');
+    shipTitle.innerHTML = "";
+    
+    let shipBank = document.createElement('div');
+    shipBank.classList.add('gameboard');
+    shipBank.setAttribute("id", "enemy-ocean");
     
     let carrierShip = document.createElement('div');
     carrierShip.classList.add('shipShape', 'carriership', 'long');
@@ -209,11 +234,14 @@ function createShipBank() {
     let lockInBtn = document.createElement('button');
     lockInBtn.innerHTML = "Lock In My Board";
     lockInBtn.addEventListener('click', lockInBoard);
-    shipBank.appendChild(lockInBtn);
+    shipTitle.appendChild(lockInBtn);
 
     let randomBtn = document.createElement('button');
     randomBtn.innerHTML = "Randomly Place My Ships";
     //randomBtn.addEventListener('click', randomHumanFleet);
+
+    shipZone.appendChild(shipBank);
+    shipZone.appendChild(shipTitle);
 }
 // Function to add Event Listeners to the ships
 function addShipShapeEventListeners() {

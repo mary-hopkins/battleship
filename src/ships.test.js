@@ -145,3 +145,11 @@ test('test  hits all squares', () => {
     let targetSquare = playerGB.getCoord(74);
     expect(targetSquare.struck).toBe(true);
 });
+
+test('find square finds the correct square', () => {
+    let newGame = functions.Game();
+    let playerOne = newGame.getPlayer(1);
+    let playerGB = playerOne.getGameBoard();
+    let targetSquare = playerGB.findSquare(12);
+    expect(playerGB.findSquare(12)).toBe(targetSquare);
+});
