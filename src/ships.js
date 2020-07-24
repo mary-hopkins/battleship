@@ -98,22 +98,12 @@ const Gameboard = (
       finalArray = tryLeftRight(length, startPoint);
       if(finalArray) {
         return finalArray;
-      } else {
-        finalArray = tryUpDown(length, startPoint);
-        if(finalArray){
-          return finalArray;
-        } else {return false}
-      }
+      } else {return false}
     } else {
       finalArray = tryUpDown(length, startPoint);
       if(finalArray) {
         return finalArray;
-      } else {
-        finalArray = tryLeftRight(length, startPoint);
-        if(finalArray) {
-          return finalArray;
-        } else {return false}
-      }
+      } else {return false}
     }
   }
 
@@ -228,7 +218,6 @@ const Gameboard = (
         return currentSquare;
       }
     }
-    console.log(`we didn't find`);
   }
 
   const receiveAttack = (coord) => {
@@ -271,7 +260,8 @@ const checkDefeat = () => {
     createShip,
     receiveAttack,
     getDefeated,
-    findSquare
+    findSquare,
+    findAvailableCoords
   };
 
 }
@@ -355,9 +345,6 @@ const Player = (
     return possibleShips;
   }
 
-
-  
-  
   //Sends attack from Computer Player to Human GameBoard
   function computerShootsHuman(humanGB) {
     let legalMove = findLegalMove(humanGB);
@@ -416,7 +403,9 @@ const getGameBoard = () => gameBoard;
     humanShootsComputer,
     findLegalMove,
     testHitAllSquares,
-    computerShootsHuman
+    computerShootsHuman,
+    getOptionsArray,
+    removeNegatives
   };
 };
 

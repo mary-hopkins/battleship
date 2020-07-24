@@ -40,7 +40,6 @@ function createHumanFleet() {
     humanZone.appendChild(humanFleet);
     humanZone.appendChild(humanTitle); 
 }
-
 // functions to create enemy-ocean
 function createEnemyOcean() {
     let enemyZone = document.querySelector('#right');
@@ -74,121 +73,6 @@ function createEnemyOcean() {
     enemyZone.appendChild(enemyOcean);
     enemyZone.appendChild(enemyTitle); 
 }
-
-// function to declare a winner and end the game
-function declareWinner(victor) {
-    notAPageReload();
-    removeEventListeners();
-    if(victor == 'human') {
-        alert('You have defeated your enemy!');
-    } else if (victor == 'computer') {
-        alert('You have lost to the computer');
-    }
-}
-
-function removeEventListeners() {
-    let computerSquares = document.querySelectorAll('.computer');
-    for(let i = 0; i < computerSquares.length; i++) {
-        let currentSquare = computerSquares[i];
-        currentSquare.removeEventListener('click', mainGameLoop, false);
-    }
-}
-
-// function to check for victory
-function checkVictory() {
-    if(humanGB.getDefeated()) {
-        declareWinner('computer');
-        return true;
-    } else if (computerGB.getDefeated()) {
-        console.log('human wins');
-        declareWinner('human');
-        return true;
-    }
-    return false; 
-} 
-
-/// will do many things :(
-function mainGameLoop(e) {
-    let targetSquareId = parseInt((e.target.dataset.num));
-    computerGB = computerPlayer.getGameBoard();
-    humanGB = humanPlayer.getGameBoard();
-    humanPlayer.humanShootsComputer(computerGB, targetSquareId);
-    if(!checkVictory()) {
-        computerPlayer.computerShootsHuman(humanGB);
-        if(!checkVictory()) {
-            notAPageReload();
-        }
-    }
-    
-}
-
-function addCompSquareListeners() {
-    let computerSquares = document.querySelectorAll('.computer');
-    for(let i = 0; i < computerSquares.length; i++) {
-        let currentSquare = computerSquares[i];
-        let classes = currentSquare.classList;
-        let result = classes.contains("struck");
-        if(!result) {
-            currentSquare.addEventListener('click', mainGameLoop, false);
-        }   
-    }
-}
-
-// Not a page reload
-function notAPageReload() {
-    let humanFleet = document.querySelector('#human-fleet');
-    humanFleet.innerHTML = "";
-    let computerOcean = document.querySelector('#enemy-ocean');
-    computerOcean.innerHTML= "";
-
-    createHumanFleet();
-    createEnemyOcean();
-    addCompSquareListeners();
-}
-
-///////////////////////// DRAG AND DROP  
-
-//function to rotate 
-function rotateShipShape() {
-    doTheSwitcheroo(this);
- 
-    let oldTileCoords = this.dataset.coords;
-        if(oldTileCoords === undefined) {
-        return true;
-    } else {
-        let oldTileCoords = this.dataset.coords.split(',');
-        let tileID = parseInt(oldTileCoords[0]);
-        let shipShapeLength = this.dataset.num;
-        let shipDirection = findDirection(this);
-        let newCoords = findCoords(tileID, shipShapeLength, shipDirection);
-        console.log(`should be tall or long: ${shipDirection}`);
-        let validStatus = validateCoords(newCoords, shipDirection);
-        console.log(`should be true: ${validStatus}`);
-        if(validStatus) {
-            console.log('please fire');
-            if(oldTileCoords != undefined) {
-                clearOldTiles(oldTileCoords);
-            }
-            this.setAttribute('data-coords', newCoords);
-            changeTileColors(newCoords);
-        } else {return false}
-    }
-}
-
-// actual rotate funciton
-function doTheSwitcheroo(ship) {
-    // if long, change to tall
-    let currentShipShape = ship;
-    let classes = currentShipShape.className.split(' ');
-    if(classes.includes('long')) {
-        currentShipShape.classList.remove('long');
-        currentShipShape.classList.add('tall');
-    } else if(classes.includes('tall')) {
-        currentShipShape.classList.remove('tall');
-        currentShipShape.classList.add('long');
-    }
-}
-
 // Function that creates a bank of ship shapes
 function createShipBank() {
     let shipZone = document.querySelector('#right');
@@ -243,6 +127,44 @@ function createShipBank() {
     shipZone.appendChild(shipBank);
     shipZone.appendChild(shipTitle);
 }
+
+// function to declare a winner and end the game
+function declareWinner(victor) {
+    notAPageReload();
+    removeEventListeners();
+    if(victor == 'human') {
+        alert('You have defeated your enemy!');
+    } else if (victor == 'computer') {
+        alert('You have lost to the computer');
+    }
+}
+// function to check for victory
+function checkVictory() {
+    if(humanGB.getDefeated()) {
+        declareWinner('computer');
+        return true;
+    } else if (computerGB.getDefeated()) {
+        console.log('human wins');
+        declareWinner('human');
+        return true;
+    }
+    return false; 
+} 
+/// will do many things :(
+function mainGameLoop(e) {
+    let targetSquareId = parseInt((e.target.dataset.num));
+    computerGB = computerPlayer.getGameBoard();
+    humanGB = humanPlayer.getGameBoard();
+    humanPlayer.humanShootsComputer(computerGB, targetSquareId);
+    if(!checkVictory()) {
+        computerPlayer.computerShootsHuman(humanGB);
+        if(!checkVictory()) {
+            notAPageReload();
+        }
+    }
+    
+}
+
 // Function to add Event Listeners to the ships
 function addShipShapeEventListeners() {
     let shipShapes = document.querySelectorAll('.shipShape');
@@ -251,6 +173,108 @@ function addShipShapeEventListeners() {
         currentShipShape.addEventListener('dragstart', dragStart);
         currentShipShape.addEventListener('dragend', dragEnd);
         currentShipShape.addEventListener('dblclick', rotateShipShape);
+    }
+}
+function addCompSquareListeners() {
+    let computerSquares = document.querySelectorAll('.computer');
+    for(let i = 0; i < computerSquares.length; i++) {
+        let currentSquare = computerSquares[i];
+        let classes = currentSquare.classList;
+        let result = classes.contains("struck");
+        if(!result) {
+            currentSquare.addEventListener('click', mainGameLoop, false);
+        }   
+    }
+}
+function removeEventListeners() {
+    let computerSquares = document.querySelectorAll('.computer');
+    for(let i = 0; i < computerSquares.length; i++) {
+        let currentSquare = computerSquares[i];
+        currentSquare.removeEventListener('click', mainGameLoop, false);
+    }
+}
+
+// Not a page reload
+function notAPageReload() {
+    let humanFleet = document.querySelector('#human-fleet');
+    humanFleet.innerHTML = "";
+    let computerOcean = document.querySelector('#enemy-ocean');
+    computerOcean.innerHTML= "";
+
+    createHumanFleet();
+    createEnemyOcean();
+    addCompSquareListeners();
+}
+
+///////////////////////// DRAG AND DROP  
+// function for ship placer loading
+function shipPlacer() {
+    createHumanFleet();
+    createShipBank();
+    addShipShapeEventListeners();
+    addDragAndDropCompSquareListeners();
+}
+//function to create a lockin block that starts the game
+function lockInBoard() {
+    //check shipBank for unplaced Ships
+    let shipBank = document.querySelector('#enemy-ocean');
+    if(shipBank.childNodes.length > 1) {
+        alert('Please Place the Rest of Your Fleet!');
+        return false;
+    }
+    let shipShapes = document.querySelectorAll('.shipShape');
+    for(let i = 0; i < shipShapes.length; i++) {
+        let currentShipShape = shipShapes[i];
+        let currentCoords = currentShipShape.dataset.coords.split(',');
+        let shipCoords = [];
+        
+        for(let p = 0; p < currentCoords.length; p++) {
+            shipCoords.push(parseInt(currentCoords[p]));
+        }
+        let shipLength = shipCoords.length;
+        let newShip = humanGB.createShip(shipLength, shipCoords);
+    }
+    
+    notAPageReload()
+}
+
+//function to rotate 
+function rotateShipShape() {
+    doTheSwitcheroo(this);
+ 
+    let oldTileCoords = this.dataset.coords;
+        if(oldTileCoords === undefined) {
+        return true;
+    } else {
+        let oldTileCoords = this.dataset.coords.split(',');
+        let tileID = parseInt(oldTileCoords[0]);
+        let shipShapeLength = this.dataset.num;
+        let shipDirection = findDirection(this);
+        let newCoords = findCoords(tileID, shipShapeLength, shipDirection);
+        console.log(`should be tall or long: ${shipDirection}`);
+        let validStatus = validateCoords(newCoords, shipDirection);
+        console.log(`should be true: ${validStatus}`);
+        if(validStatus) {
+            console.log('please fire');
+            if(oldTileCoords != undefined) {
+                clearOldTiles(oldTileCoords);
+            }
+            this.setAttribute('data-coords', newCoords);
+            changeTileColors(newCoords);
+        } else {return false}
+    }
+}
+// actual rotate funciton
+function doTheSwitcheroo(ship) {
+    // if long, change to tall
+    let currentShipShape = ship;
+    let classes = currentShipShape.className.split(' ');
+    if(classes.includes('long')) {
+        currentShipShape.classList.remove('long');
+        currentShipShape.classList.add('tall');
+    } else if(classes.includes('tall')) {
+        currentShipShape.classList.remove('tall');
+        currentShipShape.classList.add('long');
     }
 }
 // drag functions
@@ -281,20 +305,17 @@ function dragOver(e) {
     //console.log('over')
     e.preventDefault();
 }
-
 function dragEnter(e) {
     //console.log('enter');
     e.preventDefault();
     this.classList.add('hovered');
     this.classList.add('blue');
 }
-
 function dragLeave() {
     //console.log('leave');
     this.classList.remove('hovered', 'blue');
     
 }
-
 function dragDrop(e) {
     
     let tileID = Number(this.dataset.num);
@@ -319,7 +340,6 @@ function dragDrop(e) {
     }
     
 }
-
 // function to change tile classes for ship placement
 function findCoords(start, length, direction) {
  let finalCoords = [start];
@@ -336,7 +356,6 @@ function findCoords(start, length, direction) {
  }
     
 }
-
 // function to clear old ships after reposition
 function clearOldTiles(coordinates) {
     let coords = coordinates.split(',');
@@ -357,7 +376,6 @@ function clearOldTiles(coordinates) {
     }
 
 }
-
 //function to change tile classes after drop
 function changeTileColors(coords) {
     //console.log(`should be array ${typeof coords}`);
@@ -377,7 +395,6 @@ function changeTileColors(coords) {
         }
     }
 }
-
 function validateCoords(coords, dir) {
     // if tall - check for negatives and #s > 100
     if(dir == 'tall') {
@@ -428,38 +445,6 @@ function findDirection(shipShape) {
     }
 }
 
-//function to create a lockin block that starts the game
-function lockInBoard() {
-    //check shipBank for unplaced Ships
-    let shipBank = document.querySelector('#enemy-ocean');
-    if(shipBank.childNodes.length > 1) {
-        alert('Please Place the Rest of Your Fleet!');
-        return false;
-    }
-    let shipShapes = document.querySelectorAll('.shipShape');
-    for(let i = 0; i < shipShapes.length; i++) {
-        let currentShipShape = shipShapes[i];
-        let currentCoords = currentShipShape.dataset.coords.split(',');
-        let shipCoords = [];
-        
-        for(let p = 0; p < currentCoords.length; p++) {
-            shipCoords.push(parseInt(currentCoords[p]));
-        }
-        let shipLength = shipCoords.length;
-        let newShip = humanGB.createShip(shipLength, shipCoords);
-    }
-    
-    notAPageReload()
-}
-
-
-// function for ship placer loading
-function shipPlacer() {
-    createHumanFleet();
-    createShipBank();
-    addShipShapeEventListeners();
-    addDragAndDropCompSquareListeners();
-}
 
 ///////////////////////////// functions for loading the page
 document.addEventListener('DOMContentLoaded', function() {

@@ -153,3 +153,15 @@ test('find square finds the correct square', () => {
     let targetSquare = playerGB.findSquare(12);
     expect(playerGB.findSquare(12)).toBe(targetSquare);
 });
+
+test('get options array returns array of 4 numbers', () => {
+    let newGame = functions.Game();
+    let playerOne = newGame.getPlayer(1);
+    expect(playerOne.getOptionsArray(17)).toEqual([27, 7, 16, 18]);
+});
+
+test('removes negative numbers from an array', () => {
+    let newGame = functions.Game();
+    let playerOne = newGame.getPlayer(1);
+    expect(playerOne.removeNegatives([5, 10, -3, 27])).toEqual([5, 10, 27]);
+});
