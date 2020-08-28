@@ -144,7 +144,6 @@ function checkVictory() {
         declareWinner('computer');
         return true;
     } else if (computerGB.getDefeated()) {
-        console.log('human wins');
         declareWinner('human');
         return true;
     }
@@ -251,11 +250,8 @@ function rotateShipShape() {
         let shipShapeLength = this.dataset.num;
         let shipDirection = findDirection(this);
         let newCoords = findCoords(tileID, shipShapeLength, shipDirection);
-        console.log(`should be tall or long: ${shipDirection}`);
         let validStatus = validateCoords(newCoords, shipDirection);
-        console.log(`should be true: ${validStatus}`);
         if(validStatus) {
-            console.log('please fire');
             if(oldTileCoords != undefined) {
                 clearOldTiles(oldTileCoords);
             }
@@ -283,7 +279,6 @@ function dragStart() {
     setTimeout(() => (this.classList.add('invisible')), 0);
     this.classList.add('fill');
     if(this.dataset.coords != undefined) {
-        console.log('has coords');
     }
 }
 function dragEnd() {
@@ -302,17 +297,14 @@ function addDragAndDropCompSquareListeners() {
     }
 }
 function dragOver(e) {
-    //console.log('over')
     e.preventDefault();
 }
 function dragEnter(e) {
-    //console.log('enter');
     e.preventDefault();
     this.classList.add('hovered');
     this.classList.add('blue');
 }
 function dragLeave() {
-    //console.log('leave');
     this.classList.remove('hovered', 'blue');
     
 }
@@ -330,7 +322,6 @@ function dragDrop(e) {
         let oldCoords = currentShipShape.dataset.coords;
         this.append(currentShipShape);
         if(oldCoords != undefined) {
-            console.log('about ot fire clean up');
             clearOldTiles(oldCoords);
         }
         currentShipShape.setAttribute('data-coords', newCoords);
@@ -378,7 +369,6 @@ function clearOldTiles(coordinates) {
 }
 //function to change tile classes after drop
 function changeTileColors(coords) {
-    //console.log(`should be array ${typeof coords}`);
     let squares = document.querySelectorAll('.square');
     for(let i = 0; i < squares.length; i++) {
         let currentSquare = squares[i];
@@ -398,7 +388,6 @@ function changeTileColors(coords) {
 function validateCoords(coords, dir) {
     // if tall - check for negatives and #s > 100
     if(dir == 'tall') {
-        console.log(`1 is tall`);
         for(let i = 0; i < coords.length; i++) {
             if(coords[i] < 0 || coords[i] > 99) {
                 return false;
@@ -427,7 +416,6 @@ function validateCoords(coords, dir) {
             if(coords[j] == squareID) {
                 let classes = squares[p].className.split(' ');
                 if(classes.includes('ship')) {
-                    console.log('shold fire');
                     return false;
                 } 
             } 
