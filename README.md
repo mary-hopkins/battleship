@@ -1,22 +1,29 @@
 # ReadMe
 
-This is a battleship game to play in the browser.  It does not save state.
+This is a battleship game to play in the browser. It was created with vanilla Javascript and the test suite utilizes Jest. This game does not save state or keep score.
 
-* Install
-    I will be using npm instead of yarn for most of these installs.  
-    You will need the following programs: Webpack, Jest, Babel
-    
-    Jest
-        > npm install --save-dev jest
-    
-    Webpack
-        >npm init -y
-        >npm install webpack webpack-cli --save-dev
-        >npm install --save-dev webpack-dev-server
-    
-    babel-loader
-        >npm install -D babel-loader @babel/core @babel/preset-env webpack
+[See it Live!](https://simple-battleship-game.glitch.me/)
 
-* Launch
-    Using webpack dev server, which is configured in package.json file.
-    > npm start
+## Install Instructions
+
+* Clone the repository
+* Install dependencies with:
+
+```
+npm install
+```
+## Launch
+
+* Program will launch using webpack dev server, which is configured in the package.json file.
+
+* In the terminal, navigate to the project root and use the following command.
+```
+npm start
+```
+## Running Tests
+
+* In the project root, run the following command:
+
+```
+npm test
+```

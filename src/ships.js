@@ -410,7 +410,6 @@ const getGameBoard = () => gameBoard;
 };
 
 const Game = (
-
 ) => {
 
   let playersArray = [];
